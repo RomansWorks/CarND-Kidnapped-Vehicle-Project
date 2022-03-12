@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <random>
 #include "helper_functions.h"
 
 struct Particle {
@@ -43,7 +44,7 @@ class ParticleFilter {
    * @param std[] Array of dimension 3 [standard deviation of x [m], 
    *   standard deviation of y [m], standard deviation of yaw [rad]]
    */
-  void init(double x, double y, double theta, double std[]);
+  void init(double x, double y, double theta, const double std[]);
 
   /**
    * prediction Predicts the state for the next time step
@@ -56,15 +57,6 @@ class ParticleFilter {
    */
   void prediction(double delta_t, double std_pos[], double velocity, 
                   double yaw_rate);
-  
-  /**
-   * dataAssociation Finds which observations correspond to which landmarks 
-   *   (likely by using a nearest-neighbors data association).
-   * @param predicted Vector of predicted landmark observations
-   * @param observations Vector of landmark observations
-   */
-  void dataAssociation(std::vector<LandmarkObs> predicted, 
-                       std::vector<LandmarkObs>& observations);
   
   /**
    * updateWeights Updates the weights for each particle based on the likelihood
@@ -119,7 +111,12 @@ class ParticleFilter {
   bool is_initialized;
   
   // Vector of weights of all particles
-  std::vector<double> weights; 
+  std::vector<double> weights;
+
+  // Random engine
+  std::default_random_engine gen;
+  Map::single_landmark_s findNearestLandmark(const Map &map_landmarks, const double obs_x_map,
+                              const double obs_y_map) const;
 };
 
 #endif  // PARTICLE_FILTER_H_

@@ -248,4 +248,16 @@ inline bool read_landmark_data(std::string filename,
   return true;
 }
 
+
+inline double multivariate_gaussian_pdf(
+    const double x, const double y,
+    const double mean_x, const double mean_y,
+    const double stdev_x, double stdev_y) {
+  double normalizer = 1 / (2 * M_PI * stdev_x * stdev_y);
+  double xdev = pow(x - mean_x, 2) / (2 * stdev_x * stdev_x);
+  double ydev = pow(y - mean_y, 2) / (2 * stdev_y * stdev_y);
+  return normalizer * exp(-(xdev + ydev));
+}
+
+
 #endif  // HELPER_FUNCTIONS_H_

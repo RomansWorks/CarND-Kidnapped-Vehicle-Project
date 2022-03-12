@@ -1,3 +1,11 @@
+# About
+
+This repo is my solution to Udacity's Kidnapped Vehicle Project. 
+
+Please see the original project framework at [here](https://github.com/udacity/CarND-Kidnapped-Vehicle-Project).
+
+# Original README below
+
 # Overview
 This repository contains all the code needed to complete the final project for the Localization course in Udacity's Self-Driving Car Nanodegree.
 
